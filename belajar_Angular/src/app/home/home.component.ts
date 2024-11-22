@@ -3,8 +3,6 @@ import { HousingLocationComponent } from '../housing-location/housing-location.c
 import { CommonModule } from '@angular/common';
 import { HousingLocation } from '../housing-location';
 import { HousingService } from '../housing.service';
-// import {}
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -15,11 +13,11 @@ import { HousingService } from '../housing.service';
 export class HomeComponent {
   housingLocationList: HousingLocation[] = [];
   housingService: HousingService = inject(HousingService);
-  housingLocation: HousingLocation | undefined
-
+  
   constructor(){
-    this.housingLocationList = this.housingService.getAllHousingLocations();
-    this.housingLocation= this.housingService.getHousingLocationById(this.housingLocationId);
-    console.table(this.housingLocation)
+    this.housingService.getAllHousingLocations()
+    .then((listData: HousingLocation[]) =>{
+      this.housingLocationList = listData;
+    });
   }
 }
